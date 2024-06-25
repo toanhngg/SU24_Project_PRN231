@@ -1,3 +1,6 @@
+using BusinessObject.Models;
+using Microsoft.EntityFrameworkCore;
+
 namespace Project_API
 {
     public class Program
@@ -5,10 +8,11 @@ namespace Project_API
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+			builder.Services.AddDbContext<PizzaLabContext>(options =>
+options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+			// Add services to the container.
 
-            // Add services to the container.
-
-            builder.Services.AddControllers();
+			builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
