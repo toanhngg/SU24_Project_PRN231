@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.Extensions.Configuration;
 
 namespace BusinessObject.Models
 {
@@ -18,6 +17,7 @@ namespace BusinessObject.Models
         }
 
         public virtual DbSet<Category> Categories { get; set; } = null!;
+        public virtual DbSet<Customer> Customers { get; set; } = null!;
         public virtual DbSet<Order> Orders { get; set; } = null!;
         public virtual DbSet<OrderDetail> OrderDetails { get; set; } = null!;
         public virtual DbSet<Product> Products { get; set; } = null!;
@@ -27,12 +27,14 @@ namespace BusinessObject.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-			var ConnectionString = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetConnectionString("DefaultConnection");
-			optionsBuilder.UseSqlServer(ConnectionString);
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseSqlServer("server =(local); database = PizzaLab ; uid=nta1310;pwd=12345678;Trusted_Connection=True;Encrypt=False");
+            }
+        }
 
-		}
-
-		protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Category>(entity =>
             {
@@ -41,6 +43,21 @@ namespace BusinessObject.Models
                 entity.Property(e => e.CategoryName).HasMaxLength(50);
 
                 entity.Property(e => e.Description).HasMaxLength(250);
+            });
+
+            modelBuilder.Entity<Customer>(entity =>
+            {
+                entity.ToTable("Customer");
+
+                entity.Property(e => e.Email)
+                    .HasMaxLength(50)
+                    .IsFixedLength();
+
+                entity.Property(e => e.Name).HasMaxLength(50);
+
+                entity.Property(e => e.Phone)
+                    .HasMaxLength(10)
+                    .IsFixedLength();
             });
 
             modelBuilder.Entity<Order>(entity =>
@@ -58,6 +75,15 @@ namespace BusinessObject.Models
                 entity.Property(e => e.ShipAddress).HasMaxLength(50);
 
                 entity.Property(e => e.ShippedDate).HasColumnType("datetime");
+
+                entity.Property(e => e.TableAdress)
+                    .HasMaxLength(10)
+                    .IsFixedLength();
+
+                entity.HasOne(d => d.Customer)
+                    .WithMany(p => p.Orders)
+                    .HasForeignKey(d => d.CustomerId)
+                    .HasConstraintName("FK_Order_Customer");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Orders)

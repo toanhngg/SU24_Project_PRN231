@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>eCommerce Product Detail</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+    <link href="~/css/detailproduct.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="container-fluid">
+                <div class="wrapper row">
+                    @{
+                        var detail = ViewBag.Productdetail;
+                    }
+                    @if (detail == null)
+                    {
+                        <p>Product details are not available.</p>
+                    }
+                    else
+                    {
+                        <div class="row">
+                            <div class="preview col-md-6">
+                                <div class="preview-pic tab-content">
+                                    <div class="tab-pane active" id="pic-1">
+                                        <img src="@detail?.Image ?? " default-image.jpg"" alt="@detail?.Name ?? " Product Image"" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="details col-md-6">
+                                <h3 class="product-title">@detail?.Name ?? "Product Name"</h3>
+                                <p class="product-description">@detail?.Description ?? "Product Description"</p>
+                                <h4 class="price">Price: <span>$@(detail?.Price?.ToString("F2") ?? "0.00")</span></h4>
+                                <h4 class="price">Category: <span>@(detail?.CategoryName ?? "Category")</span></h4>
+                                <p class="vote"><strong>Weight: </strong>@(detail?.Weight ?? "N/A")<strong></strong></p>
+                                <div class="action">
+                                    <button class="add-to-cart btn btn-default" type="button">Add to Cart</button>
+                                    <button class="like btn btn-default" type="button"><span class="fa fa-heart"></span></button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <div class="review-section">
+                    <h3>Leave a Comment</h3>
+                    <form action="/Home/SubmitComment" method="post" class="form-inline">
+                        <div class="form-group">
+                            <img src="/path/to/avatar.jpg" class="img-circle" alt="User Avatar" width="50" height="50">
+                        </div>
+                        <div class="form-group">
+                            <textarea name="comment" class="form-control" rows="3" placeholder="Write your comment here..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>

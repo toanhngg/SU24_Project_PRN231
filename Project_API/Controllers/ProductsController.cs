@@ -49,9 +49,11 @@ namespace Project_API.Controllers
                                                p.Name,
                                                p.Description,
                                                p.Image,
-                                               p.CategoryId,
+                                               p.Weight,
+											   p.CategoryId,
                                                p.Ammount,
-                                               p.Category,
+                                               p.Price,
+                                               c.CategoryName
   
                                            }).FirstOrDefault();
 
