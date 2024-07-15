@@ -80,7 +80,6 @@ D:\PRN231\SU24_Project_PRN231\Project_Client\bin\Debug\net6.0\runtimes\win\lib\n
 D:\PRN231\SU24_Project_PRN231\Project_Client\bin\Debug\net6.0\BusinessObject.dll
 D:\PRN231\SU24_Project_PRN231\Project_Client\bin\Debug\net6.0\BusinessObject.pdb
 D:\PRN231\SU24_Project_PRN231\Project_Client\obj\Debug\net6.0\Project_Client.csproj.AssemblyReference.cache
-D:\PRN231\SU24_Project_PRN231\Project_Client\obj\Debug\net6.0\Project_Client.csproj.CopyComplete
 D:\PRN231\SU24_Project_PRN231\Project_Client\bin\Debug\net6.0\Project_API.deps.json
 D:\PRN231\SU24_Project_PRN231\Project_Client\bin\Debug\net6.0\Project_API.runtimeconfig.json
 D:\PRN231\SU24_Project_PRN231\Project_Client\bin\Debug\net6.0\Project_API.exe
@@ -93,3 +92,5 @@ D:\PRN231\SU24_Project_PRN231\Project_Client\bin\Debug\net6.0\Swashbuckle.AspNet
 D:\PRN231\SU24_Project_PRN231\Project_Client\bin\Debug\net6.0\Project_API.dll
 D:\PRN231\SU24_Project_PRN231\Project_Client\bin\Debug\net6.0\Project_API.pdb
 D:\PRN231\SU24_Project_PRN231\Project_Client\obj\Debug\net6.0\Project_Client.MvcApplicationPartsAssemblyInfo.cs
+D:\PRN231\SU24_Project_PRN231\Project_Client\obj\Debug\net6.0\Project_Client.sourcelink.json
+D:\PRN231\SU24_Project_PRN231\Project_Client\obj\Debug\net6.0\Project_.778B50B0.Up2Date
