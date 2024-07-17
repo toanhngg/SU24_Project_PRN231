@@ -56,10 +56,10 @@ namespace Project_Client.Controllers
             }
             return View();
         }
-        public async Task<IActionResult> ProductDetail()
+        public async Task<IActionResult> ProductDetail(int id)
         {
 			//https://localhost:7135/api/Products/getProduct?id=3
-			using (HttpResponseMessage res = await client.GetAsync(ProductApiUrl + "/getProduct?id=3"))
+			using (HttpResponseMessage res = await client.GetAsync(ProductApiUrl + "/getProduct?id=" + id))
             {
                 using (HttpContent content = res.Content)
                 {

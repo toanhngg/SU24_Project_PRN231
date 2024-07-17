@@ -298,7 +298,9 @@
                                     if (item.CategoryId == cat.Id)
                                     {
                                         <div class="col-lg-4 menu-item">
-                                            <a href="@item.Image" class="glightbox">
+                                            <a href="@Url.Action("ProductDetail", "Home", new { id = item.Id })"
+                                               class="glightbox"
+                                               onclick="return confirmRedirect('@Url.Action("ProductDetail", "Home", new { id = item.Id })');">
                                                 <img src="@item.Image" class="menu-img img-fluid" alt="">
                                             </a>
                                             <h4>@item.Name</h4>
@@ -889,7 +891,16 @@
 
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
-
+    <script>
+        function confirmRedirect(url) {
+            if (confirm('Bạn có muốn xem chi tiết không?')) {
+                window.location.href = url;
+                return false; // Prevent the default link action
+            } else {
+                return false; // Prevent the default link action
+            }
+        }
+    </script>
 </body>
 
 </html>
