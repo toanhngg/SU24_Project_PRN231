@@ -16,6 +16,8 @@ namespace BusinessObject.Models
         {
         }
 
+        public virtual DbSet<Cart> Carts { get; set; } = null!;
+        public virtual DbSet<CartDetail> CartDetails { get; set; } = null!;
         public virtual DbSet<Category> Categories { get; set; } = null!;
         public virtual DbSet<Customer> Customers { get; set; } = null!;
         public virtual DbSet<Order> Orders { get; set; } = null!;
@@ -30,12 +32,36 @@ namespace BusinessObject.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("server =(local); database = PizzaLab ; uid=nta1310;pwd=12345678;Trusted_Connection=True;Encrypt=False");
+                optionsBuilder.UseSqlServer("server =(local); database = PizzaLab; uid=nta1310;pwd=12345678;Trusted_Connection=True;Encrypt=False");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Cart>(entity =>
+            {
+                entity.ToTable("Cart");
+
+                entity.Property(e => e.Freight).HasColumnType("money");
+
+                entity.Property(e => e.OrderDate).HasColumnType("datetime");
+            });
+
+            modelBuilder.Entity<CartDetail>(entity =>
+            {
+                entity.HasKey(e => new { e.CartId, e.ProductId });
+
+                entity.ToTable("CartDetail");
+
+                entity.Property(e => e.Price).HasColumnType("money");
+
+                entity.HasOne(d => d.Cart)
+                    .WithMany(p => p.CartDetails)
+                    .HasForeignKey(d => d.CartId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CartDetail_Cart");
+            });
+
             modelBuilder.Entity<Category>(entity =>
             {
                 entity.ToTable("Category");
@@ -67,6 +93,8 @@ namespace BusinessObject.Models
                 entity.Property(e => e.Freight).HasColumnType("money");
 
                 entity.Property(e => e.IsCart).HasColumnName("isCart");
+
+                entity.Property(e => e.Note).HasMaxLength(100);
 
                 entity.Property(e => e.OrderDate).HasColumnType("datetime");
 

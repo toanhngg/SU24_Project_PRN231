@@ -17,10 +17,11 @@ namespace BusinessObject.Models
         public DateTime? RequiredDate { get; set; }
         public DateTime? ShippedDate { get; set; }
         public decimal? Freight { get; set; }
-        public string ShipAddress { get; set; } = null!;
+        public string? ShipAddress { get; set; }
         public bool? IsCart { get; set; }
         public string? TableAdress { get; set; }
         public int? CustomerId { get; set; }
+        public string? Note { get; set; }
 
         public virtual Customer? Customer { get; set; }
         public virtual User User { get; set; } = null!;

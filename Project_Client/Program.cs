@@ -1,11 +1,17 @@
-namespace Project_Client
+﻿namespace Project_Client
 {
     public class Program
     {
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
+            builder.Services.AddDistributedMemoryCache();
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30); // Thời gian hết hạn của session
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
@@ -25,6 +31,7 @@ namespace Project_Client
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseSession(); // Thêm dòng này để sử dụng session
 
             app.MapControllerRoute(
                 name: "default",

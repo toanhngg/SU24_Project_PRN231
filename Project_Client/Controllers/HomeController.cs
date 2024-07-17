@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Project_API.DTO;
 using Project_Client.Models;
+using Project_Client.Util;
 using System.Diagnostics;
 using System.Net.Http.Headers;
 
@@ -15,9 +16,11 @@ namespace Project_Client.Controllers
         private string ProductApiUrl = "";
         private string CategoryApiUrl = "";
 
-        public IActionResult Privacy()
+        public IActionResult Cart()
         {
-            return View();
+            var cart = HttpContext.Session.GetObjectFromJson<List<CartItem>>("Cart") ?? new List<CartItem>();
+
+            return View(cart);
         }
         public HomeController()
         {
